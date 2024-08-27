@@ -44,7 +44,20 @@ povertyRate = pd.DataFrame.from_dict({
     "Change": povertyChange
 })
 
-collegeGrad = collegeGrad.iloc[:10]
-collegeGrad.plot(x="State", y="Change", kind="bar")
-xticks=collegeGrad['County']
-plt.show()
+states = list(set(collegeGrad['State']))
+changes = []
+averages = []
+for stateIndex in range(len(states)):
+  for gradIndex in range(len(collegeGrad)):
+      print(stateIndex)
+      if str(collegeGrad.iloc[gradIndex:gradIndex+1]['State']).split("    ")[1] == str(states[stateIndex]):
+        changes.append(collegeGrad.iloc[gradIndex:gradIndex+1]['Change'])
+  averages.append(sum(changes)/len(changes))
+  changes = []
+print(averages)
+
+
+#collegeGrad = collegeGrad.iloc[:10]
+#collegeGrad.plot(x="State", y="Change", kind="bar")
+#xticks=collegeGrad['County']
+#plt.show()
