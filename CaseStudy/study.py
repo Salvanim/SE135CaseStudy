@@ -43,7 +43,8 @@ povertyRate = pd.DataFrame.from_dict({
     "State" : povertyRateState,
     "Change": povertyChange
 })
+
 collegeGrad = collegeGrad.iloc[:10]
-print(collegeGrad['County'])
-collegeGrad.plot(x='County', y='Change', kind="bar")
+collegeGrad.plot(x="State", y="Change", kind="bar")
+xticks=collegeGrad['County']
 plt.show()
