@@ -1,11 +1,11 @@
-import numpy as np
+
 import pandas as pd
 import matplotlib.pyplot as plt
 
 
 #pulls data form college grad and poverty rate csv files
-collegeGrad = pd.read_csv("college_graduates.csv")
-povertyRate = pd.read_csv("poverty_rate.csv")
+collegeGrad = pd.read_csv("CaseStudy/college_graduates.csv")
+povertyRate = pd.read_csv("CaseStudy/poverty_rate.csv")
 
 #appends data from college grad names and changes to arrays
 collegeGradCounty = []
@@ -43,6 +43,7 @@ povertyRate = pd.DataFrame.from_dict({
     "State" : povertyRateState,
     "Change": povertyChange
 })
-
-collegeGrad.iloc[:10].plot(x="County", y="Change", kind="bar")
+collegeGrad = collegeGrad.iloc[:10]
+print(collegeGrad['County'])
+collegeGrad.plot(x='County', y='Change', kind="bar")
 plt.show()
