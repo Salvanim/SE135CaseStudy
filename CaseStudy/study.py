@@ -1,4 +1,3 @@
-
 import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
@@ -71,7 +70,13 @@ changeComparision = pd.DataFrame.from_dict({
     "PovertyChange": povertyAverages
 })
 
-fig = px.scatter(changeComparision, x="PovertyChange", y="GraduateChange", text="State", trendline="lowess", title="Change in Graduates vs Change in Poverty per state", labels={"PovertyChange": "Change in Poverty", "GraduateChange": "Change in Graduates", "State": "States"})
+fig = px.scatter(changeComparision, 
+                  x="PovertyChange", 
+                  y="GraduateChange", 
+                  text="State", 
+                  trendline="lowess",
+                  title="Change in Graduates vs Change in Poverty per state", 
+                  labels={"PovertyChange": "Change in Poverty", "GraduateChange": "Change in Graduates", "State": "States"})
 fig.update_traces(textposition='top center')
 
 fig.write_image("figureImage.jpg")
