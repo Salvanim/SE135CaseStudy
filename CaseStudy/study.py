@@ -1,7 +1,9 @@
 
 import pandas as pd
 import matplotlib.pyplot as plt
-
+import math
+import numpy as np
+import plotly.express as px
 
 #pulls data form college grad and poverty rate csv files
 collegeGrad = pd.read_csv("CaseStudy/college_graduates.csv")
@@ -45,19 +47,30 @@ povertyRate = pd.DataFrame.from_dict({
 })
 
 states = list(set(collegeGrad['State']))
+states.sort()
 changes = []
 averages = []
-for stateIndex in range(len(states)):
+for state in states:
   for gradIndex in range(len(collegeGrad)):
-      print(stateIndex)
-      if str(collegeGrad.iloc[gradIndex:gradIndex+1]['State']).split("    ")[1] == str(states[stateIndex]):
-        changes.append(collegeGrad.iloc[gradIndex:gradIndex+1]['Change'])
-  averages.append(sum(changes)/len(changes))
+    if str(collegeGrad.iloc[gradIndex]['State']) == state:
+      changes.append(collegeGrad.iloc[gradIndex]['Change'])
+  averages.append((sum(changes)/len(changes)))
   changes = []
-print(averages)
 
+povertyChanges = []
+povertyAverages = []
+for povertyState in states:
+  for povertyIndex in range(len(povertyRate)):
+    if str(povertyRate.iloc[povertyIndex]['State']) == povertyState:
+      povertyChanges.append(povertyRate.iloc[povertyIndex]['Change'])
+  povertyAverages.append((sum(povertyChanges)/len(povertyChanges))*-1)
+  povertyChanges = []
 
-#collegeGrad = collegeGrad.iloc[:10]
-#collegeGrad.plot(x="State", y="Change", kind="bar")
-#xticks=collegeGrad['County']
-#plt.show()
+changeComparision = pd.DataFrame.from_dict({
+    "State": states,
+    "GraduateChange": averages,
+    "PovertyChange": povertyAverages
+})
+
+changeComparision.plot.scatter(y="GraduateChange", x="PovertyChange", c="DarkBlue")
+plt.show()
