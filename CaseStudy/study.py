@@ -1,7 +1,6 @@
 
 import pandas as pd
 import matplotlib.pyplot as plt
-import math
 import numpy as np
 import plotly.express as px
 
@@ -72,5 +71,7 @@ changeComparision = pd.DataFrame.from_dict({
     "PovertyChange": povertyAverages
 })
 
-changeComparision.plot.scatter(y="GraduateChange", x="PovertyChange", c="DarkBlue")
-plt.show()
+fig = px.scatter(changeComparision, x="PovertyChange", y="GraduateChange", 
+                 trendline="ols", trendline_options=dict(log_x=True),
+                 title="Log-transformed fit on linear axes")
+fig.show()
