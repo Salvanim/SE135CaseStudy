@@ -71,14 +71,6 @@ changeComparision = pd.DataFrame.from_dict({
     "PovertyChange": povertyAverages
 })
 
-#changesList = list(zip(changeComparision["PovertyChange"], changeComparision["GraduateChange"]))
-""" for i in range(len(changesList)):
-  x = changesList[i][0]
-  y = changesList[i][1]
-  plt.plot(x, y, 'bo')
-  plt.text(x * (1 + 0.01), y * (1 + 0.01) , states[i], fontsize=12) """
-
-
 fig = px.scatter(changeComparision, x="PovertyChange", y="GraduateChange", text="State", trendline="lowess", title="Change in Graduates vs Change in Poverty per state", labels={"PovertyChange": "Change in Poverty", "GraduateChange": "Change in Graduates", "State": "States"})
 fig.update_traces(textposition='top center')
 
