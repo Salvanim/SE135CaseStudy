@@ -44,10 +44,13 @@ povertyRate = pd.DataFrame.from_dict({
     "Change": povertyChange
 })
 
+#gets different state and sorting them.
 states = list(set(collegeGrad['State']))
 states.sort()
 changes = []
 averages = []
+
+#loops through collegegrad to calculate the average and stores in averages list
 for state in states:
   for gradIndex in range(len(collegeGrad)):
     if str(collegeGrad.iloc[gradIndex]['State']) == state:
@@ -55,8 +58,12 @@ for state in states:
   averages.append((sum(changes)/len(changes)))
   changes = []
 
+
+# list to store changes in poverty for each state and store the average change
 povertyChanges = []
 povertyAverages = []
+
+#loop to calcualte average change for each state
 for povertyState in states:
   for povertyIndex in range(len(povertyRate)):
     if str(povertyRate.iloc[povertyIndex]['State']) == povertyState:
@@ -64,12 +71,15 @@ for povertyState in states:
   povertyAverages.append((sum(povertyChanges)/len(povertyChanges))*-1)
   povertyChanges = []
 
+#creating dataframe with columns for state, average changes in graduates and poverty rate
 changeComparision = pd.DataFrame.from_dict({
     "State": states,
     "GraduateChange": averages,
     "PovertyChange": povertyAverages
 })
 
+#using plotly.express to create a scatter plot, shows relationship 
+#between average change in poverty rate and average change in college graduates
 fig = px.scatter(changeComparision, 
                   x="PovertyChange", 
                   y="GraduateChange", 
@@ -79,4 +89,5 @@ fig = px.scatter(changeComparision,
                   labels={"PovertyChange": "Change in Poverty", "GraduateChange": "Change in Graduates", "State": "States"})
 fig.update_traces(textposition='top center')
 
-fig.write_image("figureImage.jpg")
+#fig.write_image("figureImage.jpg")
+fig.write_html('figurePage.html')
